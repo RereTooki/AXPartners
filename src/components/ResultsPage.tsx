@@ -15,27 +15,16 @@ const Results = () => {
   const [result, setResult] = useState<ResultData | null>(null);
 
   useEffect(() => {
-    // Mock data (replace this with API call later)
-    const mockResult: ResultData = {
-      predictedGrade: 78,
-      recommendedHours: 12,
-      personalizedAdvice:
-        "Focus more on time management and break down complex topics into smaller chunks.",
+    const fetchResults = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/results");
+        setResult(res.data);
+      } catch (error) {
+        console.error("Failed to fetch result data", error);
+      }
     };
 
-    setResult(mockResult); // Set mock data as if it was fetched from API
-
-    // You can uncomment the API call code when you have the real backend ready
-    // const fetchResults = async () => {
-    //   try {
-    //     const res = await axios.get('http://localhost:5000/api/results');
-    //     setResult(res.data);
-    //   } catch (error) {
-    //     console.error('Failed to fetch result data', error);
-    //   }
-    // };
-
-    // fetchResults();
+    fetchResults();
   }, []);
 
   return (
