@@ -1,7 +1,6 @@
 // src/pages/LearningResources.tsx
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import ResourceCard from "../components/ResourceCard";
 
 interface Resource {
@@ -15,16 +14,56 @@ const LearningResources = () => {
   const [resources, setResources] = useState<Resource[]>([]);
 
   useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/resources");
-        setResources(res.data);
-      } catch (error) {
-        console.error("Failed to fetch resources data", error);
-      }
-    };
+    // Mock data (replace this with API call later)
+    const mockResources: Resource[] = [
+      {
+        title: "How to Improve Time Management",
+        type: "Article",
+        link: "https://example.com/time-management-article",
+        description:
+          "An in-depth article on improving your time management skills.",
+      },
+      {
+        title: "React Tutorial for Beginners",
+        type: "Video",
+        link: "https://youtube.com/watch?v=example",
+        description: "A beginner-friendly video tutorial on React.",
+      },
+      {
+        title: "Understanding Data Structures",
+        type: "Article",
+        link: "https://example.com/data-structures-article",
+        description:
+          "An article that breaks down common data structures and their use cases.",
+      },
+      {
+        title: "Advanced JavaScript Concepts",
+        type: "Video",
+        link: "https://youtube.com/watch?v=example2",
+        description: "A detailed video on advanced JavaScript concepts.",
+      },
+      {
+        title: "Time Management for Students",
+        type: "Article",
+        link: "https://example.com/time-management-for-students",
+        description:
+          "An article specifically designed for students on managing their time effectively.",
+      },
+    ];
 
-    fetchResources();
+    setResources(mockResources); // Setting mock data as if it was fetched from API
+
+    // Uncomment and use the following when API is available:
+    // const fetchResources = async () => {
+    //   try {
+    //     const res = await axios.get('http://localhost:5000/api/resources');
+    //     setResources(res.data);
+    //   } catch (error) {
+    //     console.error('Failed to fetch resources data', error);
+    //   }
+    // };
+
+    // fetchResources();
   }, []);
 
   return (
