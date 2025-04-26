@@ -4,6 +4,7 @@ import Dashboard from "./components/Dashboard";
 import InputForm from "./components/InputForm";
 import ResultsPage from "./components/ResultsPage";
 import ResourcesPage from "./components/ResourcesPage";
+import LearningResources from "./components/LearningResources";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/resources", // Public Route
-    element: <ResourcesPage />,
+    element: <LearningResources />,
   },
 
   // {

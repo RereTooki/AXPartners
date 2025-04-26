@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface DashboardData {
   predictedGrade: number;
@@ -41,7 +42,13 @@ const Dashboard = () => {
         </p>
 
         {/* Input Button */}
-        <div className="flex justify-end mb-8">
+        <div className="flex justify-between items-center mb-8 sborder-4 ">
+          <Link
+            to="/resources" // Link to existing Resources Page
+            className="text-blue-500 hover:underline transition duration-300"
+          >
+            Go to Learning Resources
+          </Link>
           <button
             onClick={handleInputClick}
             className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-gray-200 transition"
