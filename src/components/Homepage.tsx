@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import AuthPage from "./AuthPage";
 
 const Homepage = () => {
   return (
@@ -10,7 +11,7 @@ const Homepage = () => {
         data-aos-duration="1200"
       >
         {" "}
-        AX Partners
+        <AuthPage />
       </h1>{" "}
     </>
   );
