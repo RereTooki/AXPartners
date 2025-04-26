@@ -1,5 +1,9 @@
+// src/pages/Results.tsx
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PredictionChart from "../components/PredictionChart";
+import SuggestionBox from "../components/SuggestionBox";
 
 interface ResultData {
   predictedGrade: number;
@@ -11,16 +15,27 @@ const Results = () => {
   const [result, setResult] = useState<ResultData | null>(null);
 
   useEffect(() => {
-    const fetchResults = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/results");
-        setResult(res.data);
-      } catch (error) {
-        console.error("Failed to fetch result data", error);
-      }
+    // Mock data (replace this with API call later)
+    const mockResult: ResultData = {
+      predictedGrade: 78,
+      recommendedHours: 12,
+      personalizedAdvice:
+        "Focus more on time management and break down complex topics into smaller chunks.",
     };
 
-    fetchResults();
+    setResult(mockResult); // Set mock data as if it was fetched from API
+
+    // You can uncomment the API call code when you have the real backend ready
+    // const fetchResults = async () => {
+    //   try {
+    //     const res = await axios.get('http://localhost:5000/api/results');
+    //     setResult(res.data);
+    //   } catch (error) {
+    //     console.error('Failed to fetch result data', error);
+    //   }
+    // };
+
+    // fetchResults();
   }, []);
 
   return (
@@ -40,9 +55,7 @@ const Results = () => {
             {/* Predicted Grade Section */}
             <div className="bg-neutral-800 p-6 rounded-lg shadow-lg flex flex-col items-center">
               <h2 className="text-xl font-semibold mb-2">🎯 Predicted Grade</h2>
-              <div className="w-32 h-32 border-8 border-green-400 rounded-full flex items-center justify-center text-2xl font-bold">
-                {result.predictedGrade}%
-              </div>
+              <PredictionChart grade={result.predictedGrade} />
             </div>
 
             {/* Recommended Study Hours Section */}
@@ -54,14 +67,7 @@ const Results = () => {
             </div>
 
             {/* Personalized Advice Section */}
-            <div className="bg-neutral-800 p-6 rounded-lg shadow-lg">
-              <h2 className="text-xl font-semibold mb-4">
-                💡 Personalized Advice
-              </h2>
-              <p className="text-gray-300 leading-relaxed">
-                {result.personalizedAdvice}
-              </p>
-            </div>
+            <SuggestionBox advice={result.personalizedAdvice} />
           </div>
         ) : (
           <p className="text-center text-gray-500">Loading your results...</p>
