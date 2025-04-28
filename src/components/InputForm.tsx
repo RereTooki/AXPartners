@@ -117,7 +117,7 @@ const InputForm = () => {
 
           <button
             type="submit"
-            className="bg-white text-neutral-900 font-semibold py-3 rounded-md hover:bg-gray-200 transition w-full"
+            className="bg-white text-neutral-900 font-semibold py-3 rounded-md hover:bg-gray-200 w-full hover:scale-[1.02] transition ease-in-out duration-500 delay-10 hover:bg-[#94d8df] hover:text-white"
           >
             Submit Data
           </button>

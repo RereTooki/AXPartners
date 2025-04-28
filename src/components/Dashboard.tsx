@@ -59,13 +59,13 @@ const Dashboard = () => {
         >
           <Link
             to="/resources" // Link to existing Resources Page
-            className="text-blue-500 hover:underline transition duration-300"
+            className="text-[#94d8df] hover:underline hover:scale-[1.04] transition ease-in-out duration-500 delay-10 underline-offset-4"
           >
             Go to Learning Resources
           </Link>
           <button
             onClick={handleInputClick}
-            className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-gray-200 transition"
+            className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-gray-200 hover:scale-[1.04] transition ease-in-out duration-500 delay-10 hover:bg-[#94d8df] hover:text-white"
           >
             Fill Academic Details
           </button>
@@ -74,7 +74,7 @@ const Dashboard = () => {
         {/* Main Dashboard Cards */}
         <div className="space-y-6" data-aos="fade-up" data-aos-duration="1200">
           {/* Predicted Grade Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md">
+          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
             <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
             {data ? (
               <p className="text-3xl font-bold">{data.predictedGrade}/100</p>
@@ -84,7 +84,7 @@ const Dashboard = () => {
           </div>
 
           {/* Recommended Study Hours Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md">
+          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
             <h2 className="text-lg font-semibold mb-2">
               ⏳ Recommended Study Hours
             </h2>
@@ -96,7 +96,7 @@ const Dashboard = () => {
           </div>
 
           {/* Suggested Resources Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md">
+          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
             <h2 className="text-lg font-semibold mb-4">
               📚 Suggested Resources
             </h2>
@@ -120,6 +120,17 @@ const Dashboard = () => {
             )}
           </div>
         </div>
+      </div>
+      <div className="fixed bottom-0 left-0 ml-[2vw] lg:ml-[1vw] pb-[1.2vw] text-light-cyans underline-offset-2 nxl:underline-offset-4 md:pb-[1.2vw] text-[2vw] nsm:text-[1.2vw] xl:text-[1vw] select-none hover:scale-[1.04] transition ease-in-out duration-500 delay-10">
+        © 2025{" "}
+        <a
+          href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
+          target="_blank"
+          className="underline text-[#94d8df] tracking-wide"
+          title="About Subomi Ibukun"
+        >
+          Subomi Ibukun
+        </a>
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ const AuthPage = () => {
           </button>
         </p>
       </div>
-      <div className="fixed bottom-0 left-0 ml-[2vw] pb-[1.2vw] text-light-cyans underline-offset-2 nxl:underline-offset-4 md:pb-[1.2vw] text-[2vw] nsm:text-[1.2vw] xl:text-[1vw] select-none hover:scale-[1.04] transition ease-in-out duration-500 delay-10  text-white">
+      <div className="fixed bottom-0 left-0 ml-[2vw] lg:ml-[1vw]  pb-[1.2vw] text-light-cyans underline-offset-2 nxl:underline-offset-4 md:pb-[1.2vw] text-[2vw] nsm:text-[1.2vw] xl:text-[1vw] select-none hover:scale-[1.04] transition ease-in-out duration-500 delay-10  text-white">
         © 2025{" "}
         <a
           href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
