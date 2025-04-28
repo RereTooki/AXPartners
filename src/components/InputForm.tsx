@@ -32,7 +32,11 @@ const InputForm = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white flex items-center justify-center p-8">
-      <div className="bg-neutral-800 p-10 rounded-lg shadow-lg w-full max-w-2xl">
+      <div
+        className="bg-neutral-800 p-10 rounded-lg shadow-lg w-full max-w-2xl"
+        data-aos="fade-up"
+        data-aos-duration="1200"
+      >
         <h1 className="text-2xl font-bold mb-2">Input Your Academic Details</h1>
         <p className="text-sm text-gray-400 mb-8">
           Help AX Partners personalize your learning journey.

@@ -30,7 +30,7 @@ const LoginForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
       />
       <input
         type="password"
@@ -38,11 +38,11 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        className="w-full px-4 py-2 border rounded-md  hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
       />
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+        className="w-full bg-[#94d8df]/80 hover:bg-[#94d8df] hover:scale-[1.02] transition ease-in-out duration-500 delay-10 text-white py-2 rounded-md transition"
       >
         Login!
       </button>

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Homepage from "./components/Homepage";
+import AuthPage from "./components/AuthPage";
 import Dashboard from "./components/Dashboard";
 import InputForm from "./components/InputForm";
 import ResultsPage from "./components/ResultsPage";
@@ -9,6 +10,10 @@ const router = createBrowserRouter([
   {
     path: "/", // Root Route
     element: <Homepage />,
+  },
+  {
+    path: "/auth", // Root Route
+    element: <AuthPage />,
   },
   {
     path: "/dashboard", // Public Route

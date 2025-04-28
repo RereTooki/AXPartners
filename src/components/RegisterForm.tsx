@@ -32,7 +32,7 @@ const RegisterForm = () => {
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 transition"
       />
       <input
         type="email"
@@ -40,7 +40,7 @@ const RegisterForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 transition"
       />
       <input
         type="password"
@@ -48,11 +48,11 @@ const RegisterForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-300"
+        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 transition"
       />
       <button
         type="submit"
-        className="w-full bg-green-500 text-white py-2 rounded-md hover:bg-green-600 transition"
+        className="w-full bg-green-500 text-white py-2 rounded-md bg-[#94d8df]/80 hover:bg-[#94d8df] hover:scale-[1.02] transition ease-in-out duration-500 delay-10 transition"
       >
         Register
       </button>

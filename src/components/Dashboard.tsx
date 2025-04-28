@@ -34,15 +34,29 @@ const Dashboard = () => {
     <div className="min-h-screen bg-neutral-900 text-white p-8">
       <div className="max-w-5xl mx-auto">
         {/* Site Title */}
-        <h1 className="text-3xl font-bold mb-2">AX Partners Dashboard</h1>
-        <p className="text-gray-400 mb-10">
+        <h1
+          className="text-3xl lg:text-5xl text-center font-bold mb-8 lg:mb-12"
+          data-aos="fade-down"
+          data-aos-duration="1200"
+        >
+          AX Partners Dashboard
+        </h1>
+        <p
+          className="text-gray-400 mb-10"
+          data-aos="fade-up"
+          data-aos-duration="1200"
+        >
           Welcome to your learning optimization center. Your personalized
           academic assistant. Get your predicted grades, recommended study
           plans, and tailored learning resources — all in one place.
         </p>
 
         {/* Input Button */}
-        <div className="flex justify-between items-center mb-8 sborder-4 ">
+        <div
+          className="flex justify-between items-center mb-8 sborder-4 "
+          data-aos="fade-up"
+          data-aos-duration="1200"
+        >
           <Link
             to="/resources" // Link to existing Resources Page
             className="text-blue-500 hover:underline transition duration-300"
@@ -58,7 +72,7 @@ const Dashboard = () => {
         </div>
 
         {/* Main Dashboard Cards */}
-        <div className="space-y-6">
+        <div className="space-y-6" data-aos="fade-up" data-aos-duration="1200">
           {/* Predicted Grade Card */}
           <div className="bg-neutral-800 p-6 rounded-lg shadow-md">
             <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
