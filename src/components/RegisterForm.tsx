@@ -6,7 +6,6 @@ const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [activities, setActivities] = useState<number>(0);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -16,19 +15,24 @@ const RegisterForm = () => {
         name,
         email,
         password,
-        extracurricular_activities: activities,
       });
 
       console.log("Registration successful:", response.data);
 
-      // Store user ID and name in localStorage
       localStorage.setItem("user_id", response.data.user_id);
       localStorage.setItem("name", name);
+      // Example: storing user ID after login
+      localStorage.setItem("userId", response.data.user_id); // Adjust based on your response structure
 
       navigate("/dashboard");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration error", error);
-      alert("Error registering. Please check your input and try again.");
+
+      if (error.response?.status === 422) {
+        alert("Validation error. Please check your inputs.");
+      } else {
+        alert("Error registering. Please try again.");
+      }
     }
   };
 
@@ -56,15 +60,6 @@ const RegisterForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500"
-      />
-      <input
-        type="number"
-        placeholder="Extracurricular Activities (e.g. 2)"
-        value={activities}
-        onChange={(e) => setActivities(Number(e.target.value))}
-        required
-        min={0}
         className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500"
       />
       <button

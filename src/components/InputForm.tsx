@@ -1,13 +1,23 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const InputForm = () => {
   const [formData, setFormData] = useState({
+    courseName: "",
     lectureHours: "",
     extracurricularHours: "",
     difficultyLevel: "",
     learningType: "",
   });
+
+  const navigate = useNavigate();
+
+  const learningTypeMapping: Record<string, number> = {
+    Visual: 0,
+    Auditory: 1,
+    Kinesthetic: 2,
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -21,9 +31,32 @@ const InputForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const userId = localStorage.getItem("userId"); // ⬅️ Get from storage
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      navigate("/login");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:5000/api/input", formData);
+      const {
+        courseName,
+        lectureHours,
+        extracurricularHours,
+        difficultyLevel,
+        learningType,
+      } = formData;
+
+      await axios.post(`http://localhost:8000/courses?user_id=${userId}`, {
+        course_name: courseName,
+        hours_for_lecture: parseInt(lectureHours),
+        learning_type: learningTypeMapping[learningType],
+        difficulty_level: parseInt(difficultyLevel),
+        extracurricular_activities: parseInt(extracurricularHours),
+      });
+
       alert("Data submitted successfully!");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Submission error", error);
       alert("Something went wrong. Try again.");
@@ -43,6 +76,24 @@ const InputForm = () => {
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Removed User ID Field */}
+
+          <div className="flex flex-col">
+            <label className="text-sm mb-1" htmlFor="courseName">
+              Course Name
+            </label>
+            <input
+              type="text"
+              name="courseName"
+              id="courseName"
+              value={formData.courseName}
+              onChange={handleChange}
+              required
+              className="bg-neutral-700 rounded-md p-3"
+              placeholder="e.g., Calculus"
+            />
+          </div>
+
           <div className="flex flex-col">
             <label className="text-sm mb-1" htmlFor="lectureHours">
               Hours of Lectures per Week
@@ -54,7 +105,7 @@ const InputForm = () => {
               value={formData.lectureHours}
               onChange={handleChange}
               required
-              className="bg-neutral-700 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-white"
+              className="bg-neutral-700 rounded-md p-3"
               placeholder="e.g., 10"
             />
           </div>
@@ -70,7 +121,7 @@ const InputForm = () => {
               value={formData.extracurricularHours}
               onChange={handleChange}
               required
-              className="bg-neutral-700 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-white"
+              className="bg-neutral-700 rounded-md p-3"
               placeholder="e.g., 5"
             />
           </div>
@@ -85,7 +136,7 @@ const InputForm = () => {
               value={formData.difficultyLevel}
               onChange={handleChange}
               required
-              className="bg-neutral-700 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-white"
+              className="bg-neutral-700 rounded-md p-3"
             >
               <option value="">Select</option>
               {Array.from({ length: 10 }, (_, i) => (
@@ -106,7 +157,7 @@ const InputForm = () => {
               value={formData.learningType}
               onChange={handleChange}
               required
-              className="bg-neutral-700 rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-white"
+              className="bg-neutral-700 rounded-md p-3"
             >
               <option value="">Select</option>
               <option value="Visual">Visual</option>

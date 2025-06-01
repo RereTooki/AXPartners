@@ -5,30 +5,52 @@ import Dashboard from "./components/Dashboard";
 import InputForm from "./components/InputForm";
 import ResultsPage from "./components/ResultsPage";
 import LearningResources from "./components/LearningResources";
+import Profile from "./components/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
-    path: "/", // Root Route
+    path: "/",
     element: <Homepage />,
   },
   {
-    path: "/auth", // Root Route
+    path: "/auth",
     element: <AuthPage />,
   },
   {
-    path: "/dashboard", // Public Route
-    element: <Dashboard />,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "/input", // Public Route
-    element: <InputForm />,
+    path: "/input",
+    element: (
+      <PrivateRoute>
+        <InputForm />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "/results", // Public Route
-    element: <ResultsPage />,
+    path: "/profile",
+    element: (
+      <PrivateRoute>
+        <Profile />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "/resources", // Public Route
+    path: "/results",
+    element: (
+      <PrivateRoute>
+        <ResultsPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/resources", // If this is public, leave it as-is
     element: <LearningResources />,
   },
 ]);

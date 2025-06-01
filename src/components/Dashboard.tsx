@@ -1,30 +1,54 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-interface DashboardData {
-  predictedGrade: number;
-  recommendedHours: number;
-  resources: { title: string; link: string }[];
+interface DashboardResponse {
+  user_id: number;
+  name: string;
+  courses: any[]; // You can replace `any` with a specific type later
+  overall_stats: {
+    predictedGrade?: number;
+    recommendedHours?: number;
+    resources?: { title: string; link: string }[];
+  };
 }
 
 const Dashboard = () => {
-  const [data, setData] = useState<DashboardData | null>(null);
+  const [data, setData] = useState<DashboardResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDashboard = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/dashboard");
-        setData(res.data);
-      } catch (error) {
-        console.error("Failed to fetch dashboard data", error);
+        const userId = localStorage.getItem("user_id");
+        console.log("Fetching dashboard for user:", userId);
+        if (!userId) {
+          navigate("/auth");
+          return;
+        }
+
+        const response = await axios.get<DashboardResponse>(
+          `http://localhost:8000/users/${userId}/dashboard`
+        );
+
+        setData(response.data);
+      } catch (err: any) {
+        if (axios.isAxiosError(err) && err.response?.status === 404) {
+          // No data yet – treat as first-time user
+          setData(null);
+        } else {
+          console.error("Dashboard fetch failed:", err);
+          setError("Failed to load dashboard data.");
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchDashboard();
+  }, [navigate]);
 
   const handleInputClick = () => {
     navigate("/input");
@@ -33,76 +57,68 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-neutral-900 text-white p-8">
       <div className="max-w-5xl mx-auto">
-        {/* Site Title */}
-        <h1
-          className="text-3xl lg:text-5xl text-center font-bold mb-8 lg:mb-12"
-          data-aos="fade-down"
-          data-aos-duration="1200"
-        >
+        <h1 className="text-3xl lg:text-5xl text-center font-bold mb-8 lg:mb-12">
           AX Partners Dashboard
         </h1>
-        <p
-          className="text-gray-400 mb-10"
-          data-aos="fade-up"
-          data-aos-duration="1200"
-        >
-          Welcome to your learning optimization center. Your personalized
-          academic assistant. Get your predicted grades, recommended study
-          plans, and tailored learning resources — all in one place.
+        <p className="text-gray-400 mb-10">
+          Welcome to your learning optimization center.
         </p>
 
-        {/* Input Button */}
-        <div
-          className="flex justify-between items-center mb-8 sborder-4 "
-          data-aos="fade-up"
-          data-aos-duration="1200"
-        >
+        <div className="flex justify-between items-center mb-8">
           <Link
-            to="/resources" // Link to existing Resources Page
-            className="text-[#94d8df] hover:underline hover:scale-[1.04] transition ease-in-out duration-500 delay-10 underline-offset-4"
+            to="/resources"
+            className="text-[#94d8df] hover:underline hover:scale-[1.04] transition duration-300"
           >
             Go to Learning Resources
           </Link>
           <button
             onClick={handleInputClick}
-            className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-gray-200 hover:scale-[1.04] transition ease-in-out duration-500 delay-10 hover:bg-[#94d8df] hover:text-white"
+            className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-[#94d8df] hover:text-white hover:scale-105 transition duration-300"
           >
             Fill Academic Details
           </button>
         </div>
 
-        {/* Main Dashboard Cards */}
-        <div className="space-y-6" data-aos="fade-up" data-aos-duration="1200">
-          {/* Predicted Grade Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
-            <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
-            {data ? (
-              <p className="text-3xl font-bold">{data.predictedGrade}/100</p>
-            ) : (
-              <p className="text-gray-400">Loading grade prediction...</p>
-            )}
-          </div>
-
-          {/* Recommended Study Hours Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
-            <h2 className="text-lg font-semibold mb-2">
-              ⏳ Recommended Study Hours
+        {loading ? (
+          <p className="text-gray-400">Loading dashboard...</p>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
+        ) : data === null || !data.overall_stats?.predictedGrade ? (
+          <div className="text-center mt-16">
+            <h2 className="text-2xl font-bold mb-4">
+              Welcome{data?.name ? `, ${data.name}` : ""}! 👋
             </h2>
-            {data ? (
-              <p className="text-2xl">{data.recommendedHours} hrs/week</p>
-            ) : (
-              <p className="text-gray-400">Loading study hours...</p>
-            )}
+            <p className="text-gray-400 mb-6">
+              To get started with your performance predictions, please fill in a
+              few quick details.
+            </p>
+            <button
+              onClick={handleInputClick}
+              className="bg-[#94d8df] text-white py-2 px-6 rounded-md font-semibold hover:bg-white hover:text-neutral-900 transition"
+            >
+              Go to Input Page
+            </button>
           </div>
+        ) : (
+          <div className="space-y-6">
+            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
+              <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
+              <p className="text-3xl font-bold">
+                {data.overall_stats.predictedGrade}/100
+              </p>
+            </div>
 
-          {/* Suggested Resources Card */}
-          <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition ease-in-out duration-500 delay-10 cursor-pointer">
-            <h2 className="text-lg font-semibold mb-4">
-              📚 Suggested Resources
-            </h2>
-            {data ? (
+            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
+              <h2 className="text-lg font-semibold mb-2">⏳ Study Hours</h2>
+              <p className="text-2xl">
+                {data.overall_stats.recommendedHours} hrs/week
+              </p>
+            </div>
+
+            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
+              <h2 className="text-lg font-semibold mb-4">📚 Resources</h2>
               <ul className="list-disc list-inside space-y-2">
-                {data.resources.map((resource, idx) => (
+                {data.overall_stats.resources?.map((resource, idx) => (
                   <li key={idx}>
                     <a
                       href={resource.link}
@@ -115,18 +131,17 @@ const Dashboard = () => {
                   </li>
                 ))}
               </ul>
-            ) : (
-              <p className="text-gray-400">Loading resources...</p>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
-      <div className="fixed bottom-0 left-0 ml-[2vw] lg:ml-[1vw] pb-[1.2vw] text-light-cyans underline-offset-2 nxl:underline-offset-4 md:pb-[1.2vw] text-[2vw] nsm:text-[1.2vw] xl:text-[1vw] select-none hover:scale-[1.04] transition ease-in-out duration-500 delay-10">
+
+      <div className="fixed bottom-0 left-0 ml-6 pb-6 text-sm text-light-cyans">
         © 2025{" "}
         <a
           href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
           target="_blank"
-          className="underline text-[#94d8df] tracking-wide"
+          className="underline text-[#94d8df]"
           title="About Subomi Ibukun"
         >
           Subomi Ibukun
