@@ -7,7 +7,7 @@ interface DashboardResponse {
   name: string;
   courses: any[]; // You can replace `any` with a specific type later
   overall_stats: {
-    predictedGrade?: number;
+    average_predicted_grade?: number;
     recommendedHours?: number;
     resources?: { title: string; link: string }[];
   };
@@ -34,9 +34,9 @@ const Dashboard = () => {
         );
 
         setData(response.data);
+        console.log("Dashboard API data:", response.data);
       } catch (err: any) {
         if (axios.isAxiosError(err) && err.response?.status === 404) {
-          // No data yet – treat as first-time user
           setData(null);
         } else {
           console.error("Dashboard fetch failed:", err);
@@ -52,6 +52,10 @@ const Dashboard = () => {
 
   const handleInputClick = () => {
     navigate("/input");
+  };
+
+  const handleViewResults = () => {
+    navigate("/results");
   };
 
   return (
@@ -83,7 +87,8 @@ const Dashboard = () => {
           <p className="text-gray-400">Loading dashboard...</p>
         ) : error ? (
           <p className="text-red-500">{error}</p>
-        ) : data === null || !data.overall_stats?.predictedGrade ? (
+        ) : data === null ||
+          data.overall_stats?.average_predicted_grade === undefined ? (
           <div className="text-center mt-16">
             <h2 className="text-2xl font-bold mb-4">
               Welcome{data?.name ? `, ${data.name}` : ""}! 👋
@@ -104,7 +109,7 @@ const Dashboard = () => {
             <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
               <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
               <p className="text-3xl font-bold">
-                {data.overall_stats.predictedGrade}/100
+                {data.overall_stats.average_predicted_grade}/100
               </p>
             </div>
 
@@ -116,7 +121,7 @@ const Dashboard = () => {
             </div>
 
             <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-              <h2 className="text-lg font-semibold mb-4">📚 Resources</h2>
+              <h2 className="text-lg font-semibold mb-4">📚 Top Resources</h2>
               <ul className="list-disc list-inside space-y-2">
                 {data.overall_stats.resources?.map((resource, idx) => (
                   <li key={idx}>
@@ -131,6 +136,15 @@ const Dashboard = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="text-center pt-4">
+              <button
+                onClick={handleViewResults}
+                className="bg-[#94d8df] text-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-neutral-900 transition"
+              >
+                View Detailed Results
+              </button>
             </div>
           </div>
         )}
