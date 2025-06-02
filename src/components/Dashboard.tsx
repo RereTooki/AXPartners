@@ -77,7 +77,7 @@ const Dashboard = () => {
           <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
             AX Partners Dashboard
           </h1>
-          <p className="text-center text-gray-500 mt-4">
+          <p className="text-center text-gray-200 mt-4">
             Welcome to your learning optimization center.
           </p>
         </header>
@@ -85,13 +85,13 @@ const Dashboard = () => {
         <div className="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6 lg:gap-0">
           <Link
             to="/resources"
-            className="text-[#94d8df] hover:underline font-medium"
+            className="text-[#94d8df] hover:underline font-medium transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
           >
             Go to Learning Resources
           </Link>
           <button
             onClick={handleInputClick}
-            className="bg-[#94d8df] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#6dc8d2] transition"
+            className="bg-[#94d8df] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#6dc8d2] transition transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
           >
             Fill Academic Details
           </button>
@@ -165,7 +165,7 @@ const Dashboard = () => {
               </section>
             ) : null}
 
-            <div className="text-center">
+            <div className="text-center transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]">
               <button
                 onClick={handleViewResults}
                 className="bg-[#94d8df] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#6dc8d2] transition"
@@ -177,12 +177,12 @@ const Dashboard = () => {
         )}
       </div>
 
-      <footer className="mt-16 text-center text-sm text-[#94d8df]">
+      <footer className="mt-16 text-center text-sm  transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] fixed bottom-4 text-white ">
         © 2025{" "}
         <a
           href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
           target="_blank"
-          className="underline"
+          className="underline underline-offset-2 text-[#94d8df]"
         >
           Subomi Ibukun
         </a>
@@ -192,7 +192,7 @@ const Dashboard = () => {
 };
 
 const StatCard = ({ title, value }: { title: string; value: string }) => (
-  <div className="border rounded-lg p-6 bg-[#f0f9fa] hover:shadow-lg transition">
+  <div className="border-4 rounded-lg p-6 bg-[#f0f9fa] hover:shadow-lg transition shadow-xl border-double border-[#94d8df] transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]">
     <h2 className="text-md font-medium text-[#555] mb-1">{title}</h2>
     <p className="text-2xl font-bold text-[#1c2c2e]">{value}</p>
   </div>
