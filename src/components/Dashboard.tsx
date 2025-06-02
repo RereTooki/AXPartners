@@ -75,6 +75,7 @@ const Dashboard = () => {
   const handleViewResults = () => {
     navigate("/results");
   };
+  const handleCoursesClick = () => navigate("/courses");
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white p-8">
@@ -135,10 +136,12 @@ const Dashboard = () => {
                   data.overall_stats.total_weekly_study_hours ?? "N/A"
                 } hrs/week`}
               />
-              <StatCard
-                title="📘 Courses Tracked"
-                value={`${data.overall_stats.number_of_courses ?? "N/A"}`}
-              />
+              <div onClick={handleCoursesClick}>
+                <StatCard
+                  title="📘 Courses Tracked"
+                  value={`${data.overall_stats.number_of_courses ?? "N/A"}`}
+                />
+              </div>
               <StatCard
                 title="📈 Performance Trend"
                 value={data.overall_stats.performance_trend ?? "Not Available"}

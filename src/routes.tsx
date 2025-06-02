@@ -6,6 +6,7 @@ import InputForm from "./components/InputForm";
 import ResultsPage from "./components/ResultsPage";
 import LearningResources from "./components/LearningResources";
 import Profile from "./components/Profile";
+import Courses from "./components/Courses";
 import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -38,6 +39,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <Profile />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/courses",
+    element: (
+      <PrivateRoute>
+        <Courses />
       </PrivateRoute>
     ),
   },
