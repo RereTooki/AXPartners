@@ -2,14 +2,32 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
+interface Resource {
+  title: string;
+  link: string;
+}
+
 interface DashboardResponse {
   user_id: number;
   name: string;
-  courses: any[]; // You can replace `any` with a specific type later
+  courses: {
+    course_name: string;
+    predicted_grade: number;
+    weekly_study_hours: number;
+    resources: {
+      textbooks: string[];
+      videos: string[];
+      publishers: string[];
+    };
+    advice: string;
+  }[];
   overall_stats: {
     average_predicted_grade?: number;
+    total_weekly_study_hours?: number;
+    number_of_courses?: number;
+    performance_trend?: string;
     recommendedHours?: number;
-    resources?: { title: string; link: string }[];
+    resources?: Resource[];
   };
 }
 
@@ -106,37 +124,46 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">🎯 Predicted Grade</h2>
-              <p className="text-3xl font-bold">
-                {data.overall_stats.average_predicted_grade}/100
-              </p>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <StatCard
+                title="🎯 Avg Predicted Grade"
+                value={`${data.overall_stats.average_predicted_grade}/100`}
+              />
+              <StatCard
+                title="⏳ Total Study Hours"
+                value={`${
+                  data.overall_stats.total_weekly_study_hours ?? "N/A"
+                } hrs/week`}
+              />
+              <StatCard
+                title="📘 Courses Tracked"
+                value={`${data.overall_stats.number_of_courses ?? "N/A"}`}
+              />
+              <StatCard
+                title="📈 Performance Trend"
+                value={data.overall_stats.performance_trend ?? "Not Available"}
+              />
             </div>
 
-            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-              <h2 className="text-lg font-semibold mb-2">⏳ Study Hours</h2>
-              <p className="text-2xl">
-                {data.overall_stats.recommendedHours} hrs/week
-              </p>
-            </div>
-
-            <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-              <h2 className="text-lg font-semibold mb-4">📚 Top Resources</h2>
-              <ul className="list-disc list-inside space-y-2">
-                {data.overall_stats.resources?.map((resource, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={resource.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-400 hover:underline"
-                    >
-                      {resource.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {data.overall_stats.resources?.length ? (
+              <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
+                <h2 className="text-lg font-semibold mb-4">📚 Top Resources</h2>
+                <ul className="list-disc list-inside space-y-2">
+                  {data.overall_stats.resources.map((resource, idx) => (
+                    <li key={idx}>
+                      <a
+                        href={resource.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-400 hover:underline"
+                      >
+                        {resource.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
 
             <div className="text-center pt-4">
               <button
@@ -164,5 +191,13 @@ const Dashboard = () => {
     </div>
   );
 };
+
+// Reusable card component
+const StatCard = ({ title, value }: { title: string; value: string }) => (
+  <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
+    <h2 className="text-lg font-semibold mb-2">{title}</h2>
+    <p className="text-2xl font-bold">{value}</p>
+  </div>
+);
 
 export default Dashboard;
