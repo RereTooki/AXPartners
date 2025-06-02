@@ -99,7 +99,7 @@ const LearningResources = () => {
                 className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 w-full max-w-xs transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
               >
                 <h2 className="text-2xl font-bold mb-4 text-[#0077b6]">
-                  📘 {course.course_name}
+                  📘 {course.course_name.toUpperCase()}
                 </h2>
                 <div className="text-base text-gray-800 space-y-2">
                   <p>🎯 Predicted Score: {course.predicted_performance}</p>
