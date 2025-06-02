@@ -41,7 +41,6 @@ const Dashboard = () => {
     const fetchDashboard = async () => {
       try {
         const userId = localStorage.getItem("user_id");
-        console.log("Fetching dashboard for user:", userId);
         if (!userId) {
           navigate("/auth");
           return;
@@ -52,7 +51,6 @@ const Dashboard = () => {
         );
 
         setData(response.data);
-        console.log("Dashboard API data:", response.data);
       } catch (err: any) {
         if (axios.isAxiosError(err) && err.response?.status === 404) {
           setData(null);
@@ -68,64 +66,61 @@ const Dashboard = () => {
     fetchDashboard();
   }, [navigate]);
 
-  const handleInputClick = () => {
-    navigate("/input");
-  };
-
-  const handleViewResults = () => {
-    navigate("/results");
-  };
+  const handleInputClick = () => navigate("/input");
+  const handleViewResults = () => navigate("/results");
   const handleCoursesClick = () => navigate("/courses");
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white p-8">
-      <div className="max-w-5xl mx-auto">
-        <h1 className="text-3xl lg:text-5xl text-center font-bold mb-8 lg:mb-12">
-          AX Partners Dashboard
-        </h1>
-        <p className="text-gray-400 mb-10">
-          Welcome to your learning optimization center.
-        </p>
+    <div className="min-h-screen bg-black/80 text-neutral-800 p-8">
+      <div className="max-w-7xl mx-auto">
+        <header className="mb-12 border-b pb-8">
+          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
+            AX Partners Dashboard
+          </h1>
+          <p className="text-center text-gray-500 mt-4">
+            Welcome to your learning optimization center.
+          </p>
+        </header>
 
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6 lg:gap-0">
           <Link
             to="/resources"
-            className="text-[#94d8df] hover:underline hover:scale-[1.04] transition duration-300"
+            className="text-[#94d8df] hover:underline font-medium"
           >
             Go to Learning Resources
           </Link>
           <button
             onClick={handleInputClick}
-            className="bg-white text-neutral-900 font-semibold py-2 px-6 rounded-md hover:bg-[#94d8df] hover:text-white hover:scale-105 transition duration-300"
+            className="bg-[#94d8df] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#6dc8d2] transition"
           >
             Fill Academic Details
           </button>
         </div>
 
         {loading ? (
-          <p className="text-gray-400">Loading dashboard...</p>
+          <p className="text-center text-gray-500">Loading dashboard...</p>
         ) : error ? (
-          <p className="text-red-500">{error}</p>
+          <p className="text-center text-red-500">{error}</p>
         ) : data === null ||
           data.overall_stats?.average_predicted_grade === undefined ? (
-          <div className="text-center mt-16">
-            <h2 className="text-2xl font-bold mb-4">
+          <div className="text-center mt-20">
+            <h2 className="text-2xl font-bold mb-4 text-[#333]">
               Welcome{data?.name ? `, ${data.name}` : ""}! 👋
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-500 mb-6">
               To get started with your performance predictions, please fill in a
               few quick details.
             </p>
             <button
               onClick={handleInputClick}
-              className="bg-[#94d8df] text-white py-2 px-6 rounded-md font-semibold hover:bg-white hover:text-neutral-900 transition"
+              className="bg-[#94d8df] text-white px-6 py-2 rounded-md font-semibold hover:bg-[#6dc8d2] transition"
             >
               Go to Input Page
             </button>
           </div>
         ) : (
-          <div className="space-y-6">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-12">
+            <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               <StatCard
                 title="🎯 Avg Predicted Grade"
                 value={`${data.overall_stats.average_predicted_grade}/100`}
@@ -136,7 +131,7 @@ const Dashboard = () => {
                   data.overall_stats.total_weekly_study_hours ?? "N/A"
                 } hrs/week`}
               />
-              <div onClick={handleCoursesClick}>
+              <div onClick={handleCoursesClick} className="cursor-pointer">
                 <StatCard
                   title="📘 Courses Tracked"
                   value={`${data.overall_stats.number_of_courses ?? "N/A"}`}
@@ -146,32 +141,34 @@ const Dashboard = () => {
                 title="📈 Performance Trend"
                 value={data.overall_stats.performance_trend ?? "Not Available"}
               />
-            </div>
+            </section>
 
             {data.overall_stats.resources?.length ? (
-              <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-                <h2 className="text-lg font-semibold mb-4">📚 Top Resources</h2>
-                <ul className="list-disc list-inside space-y-2">
+              <section className="border rounded-lg p-6 bg-[#f9fafa]">
+                <h2 className="text-xl font-semibold text-[#333] mb-4">
+                  📚 Top Resources
+                </h2>
+                <ul className="list-disc list-inside space-y-2 text-[#1e4f57]">
                   {data.overall_stats.resources.map((resource, idx) => (
                     <li key={idx}>
                       <a
                         href={resource.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-400 hover:underline"
+                        className="hover:underline"
                       >
                         {resource.title}
                       </a>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </section>
             ) : null}
 
-            <div className="text-center pt-4">
+            <div className="text-center">
               <button
                 onClick={handleViewResults}
-                className="bg-[#94d8df] text-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-neutral-900 transition"
+                className="bg-[#94d8df] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#6dc8d2] transition"
               >
                 View Detailed Results
               </button>
@@ -180,26 +177,24 @@ const Dashboard = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-0 ml-6 pb-6 text-sm text-light-cyans">
+      <footer className="mt-16 text-center text-sm text-[#94d8df]">
         © 2025{" "}
         <a
           href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
           target="_blank"
-          className="underline text-[#94d8df]"
-          title="About Subomi Ibukun"
+          className="underline"
         >
           Subomi Ibukun
         </a>
-      </div>
+      </footer>
     </div>
   );
 };
 
-// Reusable card component
 const StatCard = ({ title, value }: { title: string; value: string }) => (
-  <div className="bg-neutral-800 p-6 rounded-lg shadow-md hover:scale-[1.04] transition duration-300">
-    <h2 className="text-lg font-semibold mb-2">{title}</h2>
-    <p className="text-2xl font-bold">{value}</p>
+  <div className="border rounded-lg p-6 bg-[#f0f9fa] hover:shadow-lg transition">
+    <h2 className="text-md font-medium text-[#555] mb-1">{title}</h2>
+    <p className="text-2xl font-bold text-[#1c2c2e]">{value}</p>
   </div>
 );
 
