@@ -71,28 +71,35 @@ const LearningResources = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 text-white p-6">
-      <h1 className="text-3xl font-bold text-center mb-6">
-        📚 Learning Resources
-      </h1>
       {!selectedCourse ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {courses.map((course, idx) => (
-            <div
-              key={idx}
-              onClick={() => handleCourseClick(course.course_name)}
-              className="cursor-pointer bg-neutral-800 rounded-xl p-4 hover:bg-neutral-700 transition"
-            >
-              <h2 className="text-xl font-semibold mb-1">
-                {course.course_name}
-              </h2>
-              <p className="text-sm text-gray-400">
-                Predicted Score: {course.predicted_performance}
-              </p>
-              <p className="text-sm text-gray-400">
-                Difficulty: {course.difficulty_level}/10
-              </p>
-            </div>
-          ))}
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold mb-2">📚 Learning Resources</h1>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              Explore personalized learning resources for each of your courses.
+              Tap into recommended books and curated YouTube videos to boost
+              your study performance and confidence.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {courses.map((course, idx) => (
+              <div
+                key={idx}
+                onClick={() => handleCourseClick(course.course_name)}
+                className="cursor-pointer bg-neutral-800 hover:bg-neutral-700 rounded-2xl p-6 shadow-lg transition transform hover:scale-[1.02]"
+              >
+                <h2 className="text-xl font-semibold mb-2 text-blue-400">
+                  📘 {course.course_name}
+                </h2>
+                <div className="text-sm text-gray-300 space-y-1">
+                  <p>🎯 Predicted Score: {course.predicted_performance}</p>
+                  <p>⚙️ Difficulty: {course.difficulty_level}/10</p>
+                  <p>⏱️ Study Time: {course.study_time} hrs/week</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div>
