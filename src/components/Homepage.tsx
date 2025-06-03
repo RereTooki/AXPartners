@@ -31,13 +31,13 @@ const Homepage = () => {
         data-aos-duration="2200"
       >
         <Link
-          to="/auth"
+          to="/login"
           className="px-6 py-3 rounded-md bg-white text-neutral-900 font-semibold hover:bg-[#94d8df] hover:text-white curosr-pointer hover:scale-[1.04] transition ease-in-out duration-500 delay-10 selection:text-[#94d8df]"
         >
           Login
         </Link>
         <Link
-          to="/auth"
+          to="/signup"
           className="px-6 py-3 rounded-md border border-white bg-white text-neutral-900 font-semibold hover:text-neutral-900 hover:bg-[#94d8df] hover:text-white curosr-pointer hover:scale-[1.04] transition ease-in-out duration-500 delay-10 selection:text-[#94d8df]"
         >
           Sign Up

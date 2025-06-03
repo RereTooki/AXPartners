@@ -8,12 +8,26 @@ import LearningResources from "./components/LearningResources";
 import Profile from "./components/Profile";
 import Courses from "./components/Courses";
 import PrivateRoute from "./PrivateRoute";
+import LoginForm from "./components/LoginForm";
 import Test from "./components/Test";
+import RegisterForm from "./components/RegisterForm";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+  },
+  {
+    path: "/auth",
+    element: <AuthPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginForm />,
+  },
+  {
+    path: "/signup",
+    element: <RegisterForm />,
   },
   {
     path: "/auth",

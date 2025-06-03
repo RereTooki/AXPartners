@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -37,30 +38,76 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
-      />
-      <button
-        type="submit"
-        className="w-full bg-[#94d8df]/80 hover:bg-[#94d8df] hover:scale-[1.02] transition ease-in-out duration-500 delay-10 text-white py-2 rounded-md transition"
-      >
-        Login!
-      </button>
-    </form>
+    <>
+      {" "}
+      <div className="flex flex-col gap-10 items-center justify-center min-h-screen  px-4 bg-black/80 select-none">
+        <Link
+          to="/" // Link to Home Page
+        >
+          <h1
+            className="text-4xl md:text-5xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 text-white "
+            data-aos="zoom-in"
+            data-aos-duration="1200"
+          >
+            AX Partners
+          </h1>
+        </Link>
+
+        <div
+          className="bg-white shadow-lg shadow-white/50 rounded-lg p-8 w-full max-w-md"
+          data-aos="zoom-in"
+          data-aos-duration="1200"
+        >
+          <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full px-4 py-2 border rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10"
+            />
+            <button
+              type="submit"
+              className="w-full bg-[#94d8df]/80 hover:bg-[#94d8df] hover:scale-[1.02] transition ease-in-out duration-500 delay-10 text-white py-2 rounded-md transition"
+            >
+              Login!
+            </button>
+          </form>
+          <Link
+            to="/signup" // Link to signup Page
+          >
+            <p className="text-center mt-4 text-sm hover:scale-[1.04] transition ease-in-out duration-500 delay-10">
+              Don't have an account?{" "}
+              <button className="text-[#94d8df] hover:underline">
+                Register
+              </button>
+            </p>
+          </Link>
+        </div>
+        <div className="fixed bottom-0 left-0 ml-[2vw] lg:ml-[1vw]  pb-[1.2vw] text-light-cyans underline-offset-2 nxl:underline-offset-4 md:pb-[1.2vw] text-[2vw] nsm:text-[1.2vw] xl:text-[1vw] select-none hover:scale-[1.04] transition ease-in-out duration-500 delay-10  text-white">
+          © 2025{" "}
+          <a
+            href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
+            target="_blank"
+            className="underline text-[#94d8df] tracking-wide"
+            title="About Subomi Ibukun"
+          >
+            Subomi Ibukun
+          </a>
+        </div>
+      </div>
+    </>
   );
 };
 
