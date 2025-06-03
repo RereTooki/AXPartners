@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen bg-neutral-900 text-white flex flex-col items-center justify-center p-8 selection:bg-white selection:text-neutral-900">
+    <div className="min-h-screen bg-black/80 text-white flex flex-col items-center justify-center p-8 selection:bg-white selection:text-neutral-900">
       {/* Logo and Site Title */}
       <h1
         className="text-4xl md:text-5xl lg:text-8xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10  "
@@ -38,7 +38,7 @@ const Homepage = () => {
         </Link>
         <Link
           to="/auth"
-          className="px-6 py-3 rounded-md border border-white bg-white text-neutral-900 font-semibold hover:bg-white hover:text-neutral-900 hover:bg-[#94d8df] hover:text-white curosr-pointer hover:scale-[1.04] transition ease-in-out duration-500 delay-10 selection:text-[#94d8df]"
+          className="px-6 py-3 rounded-md border border-white bg-white text-neutral-900 font-semibold hover:text-neutral-900 hover:bg-[#94d8df] hover:text-white curosr-pointer hover:scale-[1.04] transition ease-in-out duration-500 delay-10 selection:text-[#94d8df]"
         >
           Sign Up
         </Link>

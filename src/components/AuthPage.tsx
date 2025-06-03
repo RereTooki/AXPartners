@@ -7,7 +7,7 @@ const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
-    <div className="flex flex-col gap-10 items-center justify-center min-h-screen  px-4 bg-neutral-900 select-none">
+    <div className="flex flex-col gap-10 items-center justify-center min-h-screen  px-4 bg-black/80 select-none">
       <Link
         to="/" // Link to Home Page
       >
