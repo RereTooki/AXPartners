@@ -8,6 +8,7 @@ import LearningResources from "./components/LearningResources";
 import Profile from "./components/Profile";
 import Courses from "./components/Courses";
 import PrivateRoute from "./PrivateRoute";
+import Test from "./components/Test";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <InputForm />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/test",
+    element: (
+      <PrivateRoute>
+        <Test />
       </PrivateRoute>
     ),
   },

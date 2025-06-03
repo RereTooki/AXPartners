@@ -15,7 +15,7 @@ interface Course {
   advice: string;
 }
 
-const Courses = () => {
+const Test = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -149,4 +149,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Test;
