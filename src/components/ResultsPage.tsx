@@ -1,9 +1,8 @@
-// src/pages/Results.tsx
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import PredictionChart from "../components/PredictionChart";
 import SuggestionBox from "../components/SuggestionBox";
+import { useNavigate } from "react-router-dom";
 
 interface Course {
   course_name: string;
@@ -21,6 +20,7 @@ const Results = () => {
   const [selectedCourse, setSelectedCourse] = useState<string | null>(null);
   const [result, setResult] = useState<ResultData | null>(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const userId = localStorage.getItem("user_id");
 
@@ -55,81 +55,89 @@ const Results = () => {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-white px-6 py-10">
+    <div className="min-h-screen bg-black/80 text-neutral-800 p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-extrabold mb-2 text-center">
-          📊 Personalized Prediction Results
-        </h1>
-        <p className="text-center text-gray-400 max-w-3xl mx-auto mb-12">
-          Curious about how you’re predicted to perform in your courses? Click
-          any subject below to get an AI-generated performance overview, study
-          hours, and actionable advice tailored just for you.
-        </p>
-
+        <header className="mb-12 border-b pb-8">
+          <div className="flex justify-between items-center">
+            <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] w-full">
+              AX Partners Prediction Results
+            </h1>
+          </div>
+          <p className="text-center text-gray-200 mt-4">
+            Curious about how you’re predicted to perform in your courses? Click
+            any subject below to get an AI-generated performance overview, study
+            hours, and actionable advice tailored just for you.
+          </p>
+        </header>{" "}
         {!selectedCourse ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <button
+            className="mb-8 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
+            onClick={() => navigate("/dashboard")}
+          >
+            ← Back to Dashboard
+          </button>
+        ) : (
+          <button
+            className="mb-6 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
+            onClick={() => setSelectedCourse(null)}
+          >
+            ← Back to Results
+          </button>
+        )}
+        {!selectedCourse ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {courses.map((course, idx) => (
               <div
                 key={idx}
                 onClick={() => handleCourseClick(course.course_name)}
-                className="bg-neutral-800 hover:bg-neutral-700 cursor-pointer rounded-xl p-6 shadow-lg transition-transform hover:scale-[1.02]"
+                className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] flex flex-col justify-center items-center"
               >
-                <h2 className="text-xl font-semibold capitalize">
+                <h2 className="text-2xl font-semibold capitalize text-center">
                   {course.course_name}
                 </h2>
-                <p className="text-sm text-gray-400 mt-2">
+                <p className="text-sm text-gray-600 mt-2 text-center">
                   Tap to see predicted score and study tips.
                 </p>
               </div>
             ))}
           </div>
         ) : loading ? (
-          <p className="text-center text-gray-400 mt-10">
+          <p className="text-center text-gray-200 mt-10">
             Fetching prediction...
           </p>
         ) : result ? (
           <div className="space-y-10">
-            <button
-              className="text-sm bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded mb-4"
-              onClick={() => {
-                setSelectedCourse(null);
-                setResult(null);
-              }}
-            >
-              ← Back to Courses
-            </button>
-
-            <h2 className="text-3xl font-bold text-center capitalize">
+            <h2 className="text-3xl font-bold text-center capitalize text-[#94d8df]">
               Results for {result.course_name}
             </h2>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-              <div className="bg-neutral-800 p-6 rounded-lg shadow-lg col-span-1 flex flex-col justify-center items-center">
+            <div className="grid lg:grid-cols-3 gap-8 justify-center">
+              <div className="bg-[#f0f9fa] p-6 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 hover:scale-[1.02] flex flex-col justify-center items-center">
                 <h3 className="text-lg font-medium mb-2">🎯 Predicted Grade</h3>
                 <PredictionChart grade={result.predicted_grade} />
-                <p className="mt-2 text-gray-400 text-sm">
+                <p className="mt-2 text-gray-600 text-sm text-center">
                   Based on your academic profile and inputs.
                 </p>
               </div>
 
-              <div className="bg-neutral-800 p-6 rounded-lg shadow-lg col-span-1 flex flex-col justify-center">
+              <div className="bg-[#f0f9fa] p-6 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 hover:scale-[1.02] flex flex-col justify-center items-center">
                 <h3 className="text-lg font-medium mb-2">
                   ⏳ Suggested Weekly Study Time
                 </h3>
-                <p className="text-3xl font-semibold text-blue-400">
+                <p className="text-4xl font-semibold text-blue-600">
                   {result.study_hours_per_week.toFixed(1)} hrs/week
                 </p>
-                <p className="text-sm text-gray-400 mt-2">
+                <p className="text-sm text-gray-600 mt-2 text-center">
                   To improve or maintain this predicted performance.
                 </p>
               </div>
 
-              <div className="col-span-1">
+              <div className="bg-[#f0f9fa] p-6 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 hover:scale-[1.02] flex flex-col justify-center items-center">
                 <SuggestionBox advice={result.personalized_advice} />
               </div>
             </div>
 
-            <div className="text-center text-sm text-gray-500 mt-10">
+            <div className="text-center text-sm text-gray-300 mt-10">
               Note: These results are AI-generated estimates based on current
               study habits, course difficulty, and other personal factors.
             </div>
