@@ -68,7 +68,7 @@ const Courses = () => {
             {courses.map((course, index) => (
               <div
                 key={index}
-                className="bg-[#f0f9fa] p-2 tab:p-8 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] smax-w-3xl w-full"
+                className="bg-[#f0f9fa] p-2 tab:p-8 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] smax-w-3xl w-full mb-8"
               >
                 {" "}
                 <div
@@ -145,6 +145,16 @@ const Courses = () => {
           </div>
         )}
       </div>
+      <footer className="text-center text-sm  transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] fixed bottom-2 lg:bottom-4 text-white ">
+        © 2025{" "}
+        <a
+          href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
+          target="_blank"
+          className="underline underline-offset-2 text-[#94d8df]"
+        >
+          Subomi Ibukun
+        </a>
+      </footer>
     </div>
   );
 };
