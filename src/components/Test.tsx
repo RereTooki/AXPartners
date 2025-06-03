@@ -1,56 +1,76 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-interface Course {
-  course_name: string;
-  hours_for_lecture: number;
-  learning_type: number;
-  difficulty_level: number;
-  predicted_performance: number;
-  study_time: number;
-  publisher: string;
-  textbooks: string;
-  youtube_URL: string;
-  advice: string;
-}
-
 const Test = () => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    courseName: "",
+    lectureHours: "",
+    extracurricularHours: "",
+    difficultyLevel: "",
+    learningType: "",
+  });
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const userId = localStorage.getItem("user_id");
-        if (!userId) throw new Error("User not logged in");
+  const learningTypeMapping: Record<string, number> = {
+    Visual: 0,
+    Auditory: 1,
+    Kinesthetic: 2,
+  };
 
-        const response = await axios.get<Course[]>(
-          `http://localhost:8000/courses/${userId}`
-        );
-        setCourses(response.data);
-      } catch (err: any) {
-        setError("Failed to fetch courses.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    fetchCourses();
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("User ID not found. Please log in again.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const {
+        courseName,
+        lectureHours,
+        extracurricularHours,
+        difficultyLevel,
+        learningType,
+      } = formData;
+
+      await axios.post(`http://localhost:8000/courses?user_id=${userId}`, {
+        course_name: courseName,
+        hours_for_lecture: parseInt(lectureHours),
+        learning_type: learningTypeMapping[learningType],
+        difficulty_level: parseInt(difficultyLevel),
+        extracurricular_activities: parseInt(extracurricularHours),
+      });
+
+      alert("Data submitted successfully!");
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Submission error", error);
+      alert("Something went wrong. Try again.");
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-black/80 text-white p-8">
-      <div className="mmax-w-7xl mx-auto">
+    <div className="min-h-screen bg-black/80 text-white p-8 flex items-center justify-center">
+      <div className="max-w-7xl w-full">
         <header className="mb-12 border-b pb-8">
           <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Tracked Courses
+            AX Partners Input Form
           </h1>
           <p className="text-center text-gray-200 mt-4">
-            These are your currently tracked courses along with predicted
-            outcomes and helpful resources.
+            Help AX Partners personalize your learning journey.
           </p>
         </header>
         <button
@@ -59,91 +79,121 @@ const Test = () => {
         >
           ← Back to Dashboard
         </button>
-        {loading ? (
-          <p className="text-center text-gray-300">Loading courses...</p>
-        ) : error ? (
-          <p className="text-center text-red-500">{error}</p>
-        ) : (
-          <div className="grid gap-10 sjustify-center">
-            {courses.map((course, index) => (
-              <div
-                key={index}
-                className="bg-[#f0f9fa] p-2 tab:p-8 rounded-xl border-4 border-double border-[#94d8df] shadow-xl transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] smax-w-3xl w-full"
-              >
-                {" "}
-                <div
-                  key={index}
-                  className="bg-neutral-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <h2 className="text-2xl font-semibold mb-3 capitalize">
-                    {course.course_name}
-                  </h2>
-                  <div className="space-y-1 text-sm lg:text-md text-gray-200">
-                    <p>
-                      🎓 <strong>Lecture Hours:</strong>{" "}
-                      {course.hours_for_lecture}
-                    </p>
-                    <p>
-                      📈 <strong>Predicted Performance:</strong>{" "}
-                      {course.predicted_performance}/100
-                    </p>
-                    <p>
-                      📚 <strong>Study Time:</strong> {course.study_time}{" "}
-                      hrs/week
-                    </p>
-                    <p>
-                      🔥 <strong>Difficulty Level:</strong>{" "}
-                      {course.difficulty_level}/10
-                    </p>
-                    <p>
-                      🏢 <strong>Publisher:</strong> {course.publisher}
-                    </p>
-                  </div>
 
-                  <div className="mt-5 space-y-4">
-                    <details className="bg-white rounded-lg px-4 py-2 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.01]">
-                      <summary className="font-medium text-black">
-                        📖 View Textbooks
-                      </summary>
-                      <p className="mt-2 text-gray-800 whitespace-pre-line capitalize underline underline-offset-2">
-                        {course.textbooks}
-                      </p>
-                    </details>
-
-                    <details className="bg-white rounded-lg px-4 py-2 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.01]">
-                      <summary className="font-medium text-black">
-                        ▶️ View YouTube Links
-                      </summary>
-                      <ul className="mt-2 list-disc ml-6 text-blue-600 whitespace-pre-line">
-                        {course.youtube_URL.split("\n").map((url, i) => (
-                          <li key={i}>
-                            <a
-                              href={url.trim()}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="underline"
-                            >
-                              {url.trim()}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    </details>
-
-                    <details className="bg-white rounded-lg px-4 py-2 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.01]">
-                      <summary className="font-medium text-black">
-                        🧠 View Study Advice
-                      </summary>
-                      <p className="mt-2 text-gray-800 whitespace-pre-line">
-                        {course.advice}
-                      </p>
-                    </details>
-                  </div>
-                </div>
+        <div
+          className="bg-[#f0f9fa] p-2 md:p-4 tab:p-8 rounded-lg shadow-xl border-4 border-double border-[#94d8df] w-full max-w-3xl mx-auto transition ease-in-out duration-500 delay-10 hover:scale-[1.02] mb-10"
+          data-aoss="fade-up"
+          data-aoss-duration="1200"
+        >
+          <div className="bg-neutral-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <form onSubmit={handleSubmit} className="space-y-6 text-lg">
+              <div className="flex flex-col">
+                <label className="text-sm mb-1" htmlFor="courseName">
+                  Course Name
+                </label>
+                <input
+                  type="text"
+                  name="courseName"
+                  id="courseName"
+                  value={formData.courseName}
+                  onChange={handleChange}
+                  required
+                  className="bg-white rounded-md p-3 text-base"
+                  placeholder="e.g., Calculus"
+                />
               </div>
-            ))}
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1" htmlFor="lectureHours">
+                  Hours of Lectures per Week
+                </label>
+                <input
+                  type="number"
+                  name="lectureHours"
+                  id="lectureHours"
+                  value={formData.lectureHours}
+                  onChange={handleChange}
+                  required
+                  className="bg-white rounded-md p-3 text-base"
+                  placeholder="e.g., 10"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1" htmlFor="extracurricularHours">
+                  Time Spent on Extracurricular Activities (Hours)
+                </label>
+                <input
+                  type="number"
+                  name="extracurricularHours"
+                  id="extracurricularHours"
+                  value={formData.extracurricularHours}
+                  onChange={handleChange}
+                  required
+                  className="bg-white rounded-md p-3 text-base"
+                  placeholder="e.g., 5"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1" htmlFor="difficultyLevel">
+                  Perceived Difficulty Level
+                </label>
+                <select
+                  name="difficultyLevel"
+                  id="difficultyLevel"
+                  value={formData.difficultyLevel}
+                  onChange={handleChange}
+                  required
+                  className="bg-white rounded-md p-3 text-base"
+                >
+                  <option value="">Select</option>
+                  {Array.from({ length: 10 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex flex-col">
+                <label className="text-sm mb-1" htmlFor="learningType">
+                  Preferred Learning Type
+                </label>
+                <select
+                  name="learningType"
+                  id="learningType"
+                  value={formData.learningType}
+                  onChange={handleChange}
+                  required
+                  className="bg-white rounded-md p-3 text-base"
+                >
+                  <option value="">Select</option>
+                  <option value="Visual">Visual</option>
+                  <option value="Auditory">Auditory</option>
+                  <option value="Kinesthetic">Kinesthetic</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                className="bg-[#94d8df] text-white font-semibold py-3 rounded-md w-full transition ease-in-out duration-500 delay-10 hover:scale-[1.02] text-sm lg:text-base xl:text-lg"
+              >
+                Submit Data
+              </button>
+            </form>
           </div>
-        )}
+        </div>
+        <footer className="text-center text-sm  transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] fixed bottom-2 lg:bottom-4 text-white ">
+          © 2025{" "}
+          <a
+            href="https://www.linkedin.com/in/rerel-oluwa-tooki-cnvp-b53396253/"
+            target="_blank"
+            className="underline underline-offset-2 text-[#94d8df]"
+          >
+            Subomi Ibukun
+          </a>
+        </footer>
       </div>
     </div>
   );
