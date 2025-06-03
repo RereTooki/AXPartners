@@ -81,15 +81,22 @@ const LearningResources = () => {
             Explore personalized learning resources curated to help you study
             smarter and perform better.
           </p>
-        </header>
-
-        <button
-          className="mb-8 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
-          onClick={() => navigate("/dashboard")}
-        >
-          ← Back to Dashboard
-        </button>
-
+        </header>{" "}
+        {!selectedCourse ? (
+          <button
+            className="mb-8 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
+            onClick={() => navigate("/dashboard")}
+          >
+            ← Back to Dashboard
+          </button>
+        ) : (
+          <button
+            className="mb-6 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
+            onClick={() => setSelectedCourse(null)}
+          >
+            ← Back to Courses
+          </button>
+        )}
         {!selectedCourse ? (
           <div className="flex flex-wrap justify-center gap-8">
             {courses.map((course, idx) => (
@@ -111,17 +118,9 @@ const LearningResources = () => {
           </div>
         ) : (
           <div>
-            <button
-              className="mb-6 text-white bg-[#94d8df] px-4 py-2 rounded-md hover:scale-[1.02] transition ease-in-out duration-500 delay-10 cursor-pointer"
-              onClick={() => setSelectedCourse(null)}
-            >
-              ← Back to Courses
-            </button>
-
             <h2 className="text-3xl font-semibold text-[#94d8df] mb-6">
-              📘 Books for {selectedCourse}
+              📘 Books for {selectedCourse.toUpperCase()}
             </h2>
-
             {loading ? (
               <p className="text-white">Loading recommendations...</p>
             ) : (
@@ -132,7 +131,7 @@ const LearningResources = () => {
                     className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
                   >
                     <h3 className="text-lg font-bold mb-2">
-                      {book["Book-Title"]}
+                      {book["Book-Title"].toUpperCase()}
                     </h3>
                     <p className="text-sm text-gray-700">
                       Author: {book["Book-Author"]}
@@ -147,21 +146,20 @@ const LearningResources = () => {
                 ))}
               </div>
             )}
-
-            <h2 className="text-3xl font-semibold text-[#94d8df] mt-12 mb-6">
+            <h2 className="text-3xl font-semibold text-[#94d8df] my-12 border-t pt-8">
               🎥 YouTube Resources
-            </h2>
-            <div className="grid gap-4">
+            </h2>{" "}
+            <div className="space-y-4 mb-8">
               {videos.map((video, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
+                  className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-4 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
                 >
                   <a
                     href={video[0]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline font-semibold"
+                    className="text-gray-800 hover:underline underline-offset-2 font-semibold"
                   >
                     {video[1]}
                   </a>
