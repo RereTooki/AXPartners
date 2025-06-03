@@ -104,8 +104,8 @@ const Dashboard = () => {
         ) : data === null ||
           data.overall_stats?.average_predicted_grade === undefined ? (
           <div className="text-center mt-20">
-            <h2 className="text-2xl font-bold mb-4 text-[#333]">
-              Welcome{data?.name ? `, ${data.name}` : ""}! 👋
+            <h2 className="text-2xl font-bold mb-4 text-gray-200">
+              Hello there, Welcome{data?.name ? `, ${data.name}` : ""}! 👋
             </h2>
             <p className="text-gray-500 mb-6">
               To get started with your performance predictions, please fill in a
