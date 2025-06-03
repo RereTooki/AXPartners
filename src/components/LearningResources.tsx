@@ -130,8 +130,8 @@ const LearningResources = () => {
                     key={idx}
                     className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02]"
                   >
-                    <h3 className="text-lg font-bold mb-2">
-                      {book["Book-Title"].toUpperCase()}
+                    <h3 className="text-lg font-bold mb-2 capitalize">
+                      {book["Book-Title"]}
                     </h3>
                     <p className="text-sm text-gray-700">
                       Author: {book["Book-Author"]}

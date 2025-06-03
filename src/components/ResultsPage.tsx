@@ -85,15 +85,15 @@ const Results = () => {
           </button>
         )}
         {!selectedCourse ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+          <div className="flex flex-wrap justify-center gap-8">
             {courses.map((course, idx) => (
               <div
                 key={idx}
                 onClick={() => handleCourseClick(course.course_name)}
-                className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] flex flex-col justify-center items-center"
+                className="bg-[#f0f9fa] border-4 border-double border-[#94d8df] shadow-xl rounded-xl p-6 transition ease-in-out duration-500 delay-10 cursor-pointer hover:scale-[1.02] sflex flex-col justify-center items-center"
               >
-                <h2 className="text-2xl font-semibold capitalize text-center">
-                  {course.course_name}
+                <h2 className="capitalize text-2xl font-bold mb-4 text-[#0077b6]">
+                  📊{course.course_name}
                 </h2>
                 <p className="text-sm text-gray-600 mt-2 text-center">
                   Tap to see predicted score and study tips.
