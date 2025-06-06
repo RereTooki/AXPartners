@@ -121,7 +121,7 @@ const InputForm = () => {
 
               <div className="flex flex-col">
                 <label className="text-sm mb-1" htmlFor="extracurricularHours">
-                  Time Spent on Extracurricular Activities (Hours)
+                  Number of Extracurricular Activities Done
                 </label>
                 <input
                   type="number"
