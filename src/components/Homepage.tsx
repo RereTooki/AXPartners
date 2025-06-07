@@ -8,11 +8,18 @@ const Homepage = () => {
     <div className="min-h-screen bg-black/80 text-white flex flex-col items-center justify-center p-8 selection:bg-white selection:text-neutral-900">
       {/* Logo and Site Title */}
       <h1
-        className="text-4xl md:text-5xl lg:text-8xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10  "
+        className="text-4xl md:text-5xl lg:text-8xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 sborder-2 xl:hidden"
         data-aos="zoom-in"
         data-aos-duration="1500"
       >
-        AX Partners
+        PLAPS
+      </h1>{" "}
+      <h1
+        className="text-4xl md:text-5xl lg:text-8xl xl:text-5xl xxl:text-6xl xl:w-[80%] font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 border-2s hidden xl:block text-center"
+        data-aos="zoom-in"
+        data-aos-duration="1500"
+      >
+        PLAPS - Personalised Learning Academic Predictions System
       </h1>
       {/* Tagline */}
       <p
@@ -23,7 +30,6 @@ const Homepage = () => {
         Empowering students with personalized academic insights. Predict your
         success, optimize your learning journey.
       </p>
-
       {/* Buttons */}
       <div
         className="flex gap-6 lg:text-lg"

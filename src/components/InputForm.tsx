@@ -69,11 +69,14 @@ const InputForm = () => {
     <div className="min-h-screen bg-black/80 text-white p-8 flex items-center justify-center">
       <div className="max-w-7xl w-full">
         <header className="mb-12 border-b pb-8">
-          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Input Form
+          <h1 className="text-4xl xl:text-5xl font-bold text-center text-[#94d8df] xl:hidden">
+            PLAPS - Input Form
+          </h1>{" "}
+          <h1 className="text-4xl xl:text-5xl font-bold text-center text-[#94d8df] hidden xl:block">
+            PLAPS - Personalised Learning Academic Predictions System Input Form
           </h1>
           <p className="text-center text-gray-200 mt-4">
-            Help AX Partners personalize your learning journey.
+            Help PLAPS personalize your learning journey.
           </p>
         </header>
         <button

@@ -16,7 +16,7 @@ const AuthPage = () => {
           data-aos="zoom-in"
           data-aos-duration="1200"
         >
-          AX Partners
+          PLAPS - Personalised Learning Academic Predictions System
         </h1>
       </Link>
 

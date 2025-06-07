@@ -74,8 +74,11 @@ const Dashboard = () => {
     <div className="min-h-screen bg-black/80 text-neutral-800 p-8">
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 border-b pb-8">
-          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Dashboard
+          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] xl:hidden">
+            PLAPS - Dashboard
+          </h1>
+          <h1 className="text-4xl xl:text-5xl font-bold text-center text-[#94d8df] hidden xl:block">
+            PLAPS - Personalised Learning Academic Predictions System Dashboard
           </h1>
           <p className="text-center text-gray-200 mt-4">
             Welcome to your learning optimization center.
@@ -120,7 +123,7 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="space-y-12">
-            <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               <StatCard
                 title="🎯 Avg Predicted Grade"
                 value={`${data.overall_stats.average_predicted_grade}/100`}

@@ -45,15 +45,25 @@ const LoginForm = () => {
       {" "}
       <div className="flex flex-col gap-10 items-center justify-center min-h-screen  px-4 bg-black/80 select-none">
         <Link
+          className="sborder-2"
           to="/" // Link to Home Page
         >
           <h1
-            className="text-4xl md:text-5xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 text-white "
-            data-aos="zoom-in"
-            data-aos-duration="1200"
+            className="text-4xl md:text-5xl lg:text-8xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 sborder-2 xl:hidden text-center text-white  "
+            data-aoss="zoom-in"
+            data-aoss-duration="1500"
           >
-            AX Partners
-          </h1>
+            PLAPS
+          </h1>{" "}
+          <div className="w-full flex items-center justify-center h-full">
+            <h1
+              className="text-4xl md:text-5xl lg:text-8xl xl:text-5xl font-bold mb-4 tracking-wide hover:scale-[1.04] transition ease-in-out duration-500 delay-10 sborder-2 hidden xl:block text-center text-white   w-[80%]"
+              data-aoss="zoom-in"
+              data-aoss-duration="1500"
+            >
+              PLAPS - Personalised Learning Academic Predictions System
+            </h1>
+          </div>
         </Link>
 
         <div

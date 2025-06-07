@@ -74,8 +74,12 @@ const LearningResources = () => {
     <div className="min-h-screen bg-black/80 text-neutral-800 p-8">
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 border-b pb-8">
-          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Learning Resources
+          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] xl:hidden">
+            PLAPS - Learning Resources
+          </h1>{" "}
+          <h1 className="text-4xl xl:text-5xl font-bold text-center text-[#94d8df] hidden xl:block">
+            PLAPS - Personalised Learning Academic Predictions System Learning
+            Resources
           </h1>
           <p className="text-center text-gray-200 mt-4">
             Explore personalized learning resources curated to help you study

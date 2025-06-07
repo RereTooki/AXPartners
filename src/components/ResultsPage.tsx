@@ -59,8 +59,12 @@ const Results = () => {
       <div className="max-w-7xl mx-auto">
         <header className="mb-12 border-b pb-8">
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] w-full">
-              AX Partners Prediction Results
+            <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] w-full xl:hidden">
+              PLAPS - Prediction Results
+            </h1>{" "}
+            <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] w-full hidden xl:block">
+              PLAPS - Personalised Learning Academic Predictions System
+              Prediction Results
             </h1>
           </div>
           <p className="text-center text-gray-200 mt-4">

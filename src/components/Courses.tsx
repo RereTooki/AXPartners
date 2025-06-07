@@ -45,8 +45,12 @@ const Courses = () => {
     <div className="min-h-screen bg-black/80 text-white p-8">
       <div className="mmax-w-7xl mx-auto">
         <header className="mb-12 border-b pb-8">
-          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Tracked Courses
+          <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df] xl:hidden">
+            PLAPS - Tracked Courses
+          </h1>
+          <h1 className="text-4xl xl:text-5xl font-bold text-center text-[#94d8df] hidden xl:block">
+            PLAPS - Personalised Learning Academic Predictions System Tracked
+            Courses
           </h1>
           <p className="text-center text-gray-200 mt-4">
             These are your currently tracked courses along with predicted

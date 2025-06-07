@@ -70,10 +70,10 @@ const Test = () => {
       <div className="max-w-7xl w-full">
         <header className="mb-12 border-b pb-8">
           <h1 className="text-4xl lg:text-6xl font-bold text-center text-[#94d8df]">
-            AX Partners Input Form
+            PLAPS - Personalised Learning Academic Predictions System Input Form
           </h1>
           <p className="text-center text-gray-200 mt-4">
-            Help AX Partners personalize your learning journey.
+            Help PLAPS personalize your learning journey.
           </p>
         </header>
         <button
