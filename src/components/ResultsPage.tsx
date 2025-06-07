@@ -28,7 +28,7 @@ const Results = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get<Course[]>(
-          `http://localhost:8000/courses/${userId}`
+          `https://subomi-api.onrender.com/courses/${userId}`
         );
         setCourses(response.data);
       } catch (err) {
@@ -44,7 +44,7 @@ const Results = () => {
     setLoading(true);
     try {
       const response = await axios.get<ResultData>(
-        `http://localhost:8000/users/${userId}/predictions/${courseName}`
+        `https://subomi-api.onrender.com/users/${userId}/predictions/${courseName}`
       );
       setResult(response.data);
     } catch (error) {

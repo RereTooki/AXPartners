@@ -28,7 +28,7 @@ const Courses = () => {
         if (!userId) throw new Error("User not logged in");
 
         const response = await axios.get<Course[]>(
-          `http://localhost:8000/courses/${userId}`
+          `https://subomi-api.onrender.com/courses/${userId}`
         );
         setCourses(response.data);
       } catch (err: any) {

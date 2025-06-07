@@ -47,7 +47,7 @@ const Dashboard = () => {
         }
 
         const response = await axios.get<DashboardResponse>(
-          `http://localhost:8000/users/${userId}/dashboard`
+          `https://subomi-api.onrender.com/users/${userId}/dashboard`
         );
 
         setData(response.data);

@@ -12,10 +12,13 @@ const LoginForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://subomi-api.onrender.com/login",
+        {
+          email,
+          password,
+        }
+      );
 
       const { user_id, name } = response.data;
 

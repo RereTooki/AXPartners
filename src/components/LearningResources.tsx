@@ -43,7 +43,7 @@ const LearningResources = () => {
         if (!userId) throw new Error("User not logged in");
 
         const response = await axios.get<Course[]>(
-          `http://localhost:8000/courses/${userId}`
+          `https://subomi-api.onrender.com/courses/${userId}`
         );
         setCourses(response.data);
       } catch (err) {
@@ -59,7 +59,7 @@ const LearningResources = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `http://localhost:8000/recommendations/${courseName}`
+        `https://subomi-api.onrender.com/recommendations/${courseName}`
       );
       setBooks(res.data.books);
       setVideos(res.data.videos);

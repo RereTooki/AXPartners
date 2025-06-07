@@ -46,13 +46,16 @@ const InputForm = () => {
         learningType,
       } = formData;
 
-      await axios.post(`http://localhost:8000/courses?user_id=${userId}`, {
-        course_name: courseName,
-        hours_for_lecture: parseInt(lectureHours),
-        learning_type: learningTypeMapping[learningType],
-        difficulty_level: parseInt(difficultyLevel),
-        extracurricular_activities: parseInt(extracurricularHours),
-      });
+      await axios.post(
+        `https://subomi-api.onrender.com/courses?user_id=${userId}`,
+        {
+          course_name: courseName,
+          hours_for_lecture: parseInt(lectureHours),
+          learning_type: learningTypeMapping[learningType],
+          difficulty_level: parseInt(difficultyLevel),
+          extracurricular_activities: parseInt(extracurricularHours),
+        }
+      );
 
       alert("Data submitted successfully!");
       navigate("/dashboard");
