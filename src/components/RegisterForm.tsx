@@ -52,7 +52,7 @@ const RegisterForm = () => {
             data-aoss="zoom-in"
             data-aoss-duration="1500"
           >
-            PLAPS
+            PLAPS - Sign Up
           </h1>{" "}
           <div className="w-full flex items-center justify-center h-full">
             <h1
@@ -60,7 +60,7 @@ const RegisterForm = () => {
               data-aoss="zoom-in"
               data-aoss-duration="1500"
             >
-              PLAPS - Personalised Learning Academic Predictions System
+              PLAPS - Personalised Learning Academic Predictions System Sign Up
             </h1>{" "}
           </div>
         </Link>

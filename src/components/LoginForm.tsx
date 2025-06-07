@@ -53,7 +53,7 @@ const LoginForm = () => {
             data-aoss="zoom-in"
             data-aoss-duration="1500"
           >
-            PLAPS
+            PLAPS - Login
           </h1>{" "}
           <div className="w-full flex items-center justify-center h-full">
             <h1
@@ -61,7 +61,7 @@ const LoginForm = () => {
               data-aoss="zoom-in"
               data-aoss-duration="1500"
             >
-              PLAPS - Personalised Learning Academic Predictions System
+              PLAPS - Personalised Learning Academic Predictions System Login
             </h1>
           </div>
         </Link>
